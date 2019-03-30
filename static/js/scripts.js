@@ -3,7 +3,19 @@ document.addEventListener('click', clickHandlers)
 var nyt = 'https://api.nytimes.com/svc/topstories/v2/nyregion.json?api-key=OuQiMDj0xtgzO80mtbAa4phGCAJW7GKa'
 
 function clickHandlers(){
-
+  if (event.target.matches('#pull')){
+    document.querySelector('body').classList.toggle('show-nav');
+    event.preventDefault();
+  }
+  if (event.target.matches('.content-video a')){
+    const iFrame = document.querySelector('iframe');
+    const videoLinks = document.querySelectorAll('.content-video a');
+    videoLinks.forEach(videoLink => videoLink.classList.remove('active'));
+    event.target.classList.add('active');
+    const videoToPlay = event.target.getAttribute('href');
+    iFrame.setAttribute('src', videoToPlay);
+    event.preventDefault();
+  }
 }
 
 var addContent = function(data){
@@ -18,7 +30,9 @@ var addContent = function(data){
       </div>
       `
   }
-  document.querySelector('.content div').innerHTML = looped
+  if (document.querySelector('.content div')){
+    document.querySelector('.content div').innerHTML = looped
+  }
 }
 
 var getData = function () {
@@ -28,3 +42,7 @@ var getData = function () {
 }
 
 getData();
+
+
+
+

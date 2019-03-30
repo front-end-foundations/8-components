@@ -9,9 +9,16 @@
 
 {% include components/header.html %}
 
-<div class="content">
+<section id="videos">
+<article>
+{% include components/video.html %}
+</article>
+<aside>
+{% include components/video-aside.html %}
+</aside>
+</section>
 
-    <h1>{{ pageTitle }}</h1>
+<div class="content">
 
     {{ content }}
     

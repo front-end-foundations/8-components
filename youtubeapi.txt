@@ -1,0 +1,35 @@
+var key = 'AIzaSyD_gENjk71-zGXKKC9HRoRehePq0nyit2k'
+var playlist = 'PL804E766A9771BF70'
+var url = 'https://www.googleapis.com/youtube/v3/playlists'
+var options = {
+  'part': 'snippet',
+  key: key,
+  maxResults: 12,
+  playListId: playlist
+}
+var getVideos = function () {
+  fetch(url + '&part=snippet')
+  .then(response => response.json())
+  .then(json => console.log(json))
+}
+
+getVideos()
+
+
+
+
+
+
+## YouTube API
+
+`https://console.developers.google.com`
+
+`https://developers.google.com/youtube/v3/`
+
+AIzaSyD_gENjk71-zGXKKC9HRoRehePq0nyit2k
+
+https://www.youtube.com/playlist?list=PL804E766A9771BF70
+
+https://www.googleapis.com/youtube/v3/playlistItems
+
+https://developers.google.com/youtube/v3/docs/playlistItems/list

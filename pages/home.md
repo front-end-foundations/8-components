@@ -1,5 +1,5 @@
 ---
-layout: layouts/layout.html
+layout: layouts/home.html
 pageTitle: Home
 tags:
   - nav

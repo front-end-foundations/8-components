@@ -1,15 +1,18 @@
 {
   "name": "eleventy2",
   "version": "1.0.0",
-  "description": "session 8",
+  "description": "## Homework",
   "main": "index.js",
   "scripts": {
-    "eleventy": "eleventy --serve"
+    "eleventy": "eleventy --serve",
+    "sass": "sass ignore/scss/styles.scss static/css/styles.css --watch --source-map",
+    "start": "npm run sass & npm run eleventy"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@11ty/eleventy": "^0.7.1"
+    "@11ty/eleventy": "^0.7.1",
+    "sass": "^1.17.3"
   }
 }
