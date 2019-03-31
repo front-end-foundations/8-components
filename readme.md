@@ -1064,5 +1064,4 @@ var getData = function () {
 }
 
 getData();
-
 ```
