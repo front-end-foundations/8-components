@@ -204,10 +204,8 @@ header {
 ```
 
 Compare the resulting css file with the source sass file. 
-Inspect the header in the developer tools and note the *mapping*.
 
-* maps the css line numbers to the scss line numbers
-* note the line numbers in the element inspector
+Inspect the header in the developer tools and note that *mapping* maps the css line numbers to the scss line numbers
 
 ### Media Query - Mobile First
 
@@ -234,10 +232,6 @@ p {
 }
 ```
 
-Examine the resulting css. 
-
-Examine the mapping.
-
 Note: this is *not* a mobile first design pattern. It uses `max-width` to add display attributes to small screens.
 
 Change it to use a `min-width` mobile first design pattern:
@@ -257,7 +251,7 @@ p {
 
 ### Variables
 
-Create and add `_variables.scss` to imports with:
+Create `_variables.scss` in `scss/imports` with:
 
 ```
 $break-sm: 480px;
@@ -576,7 +570,7 @@ nav .active a {
 
 ## Video Component
 
-
+Add the component to `layout.html`
 
 ```html
 <section id="videos">
@@ -1064,5 +1058,4 @@ var getData = function () {
 }
 
 getData();
-
 ```
