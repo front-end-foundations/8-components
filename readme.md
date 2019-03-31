@@ -6,7 +6,11 @@ Log in to Github and create an empty repo called components.
 
 ## Homework
 
-## Exercise
+## Exercise - A Site Redesign
+
+Our hypothetical company has a site the looks outdated and not responsive.
+
+![site](ignore/other/wide.png)
 
 Before beginning, examine the changes to the site from last week.
 
@@ -82,7 +86,7 @@ header h1 {
 	font-size: 3rem;
 }
 header p {
-	font-size: 1.2s5rem;
+	font-size: 1.25rem;
 	text-transform: uppercase;
 	line-height: 1.1;
 	margin-bottom: 1rem;
@@ -99,6 +103,10 @@ header p + p {
 ```
 
 ## Install sass
+
+Examine the directories in the ignore directory. 
+
+Copy and paste the contents of `syles.css` to `_base.scss`.
 
 ```
 $ npm i -D sass
@@ -125,21 +133,25 @@ $ npm i -D sass
 }
 ```
 
+Call the sass partial from `styles.scss`
+
+```css
+@import 'imports/normalize';
+@import 'imports/main';
+@import 'imports/base';
+```
+
+CSS minifcation?
+
 ## Using Live SASS Compiler
 
-Most editors will offer the ability do preprocessing as well as browser refresh.
-
-[Visual Studio Code](https://code.visualstudio.com) offers an array of plug-ins that we can use to perform the SASS preprocessing function. VS Code is remarkably flexible and offers a setting for almost anything you could wish for. See the Visual Studio Code [documentation](https://code.visualstudio.com/docs/getstarted/settings) for changing settings.
-
-[Live Sass Compiler](https://marketplace.visualstudio.com/items?itemName=ritwickdey.live-sass) for VS Code.
-
-Install Live SASS Compiler and set the _workspace settings_ as shown:
+If you prefer to use the VS Code plugin [Live Sass Compiler](https://marketplace.visualstudio.com/items?itemName=ritwickdey.live-sass) for VS Code set the _workspace settings_ as shown:
 
 ```js
 {
   "liveSassCompile.settings.formats": [
       {
-          "savePath": "/static/css/",
+          "savePath": "/_site/static/css/",
           "format": "expanded"
       }
   ],
@@ -156,6 +168,8 @@ Note the `.vscode` directory that is created for per project settings.
 See the full [documentation](https://github.com/ritwickdey/vscode-live-sass-compiler/blob/master/docs/settings.md) for settings.
 
 Click the `Watch Sass` button at the bottom of the editor.
+
+Note: since we are compiling the css directly to the `_site` folder, there is no need for the passthrough in `.eleventy.js`.
 
 ## Nesting SASS
 
@@ -989,6 +1003,8 @@ figure {
 ```
 
 ## Notes
+
+js ajax and localstorage
 
 At a certain point I had to adjust the js to remove an error.
 
