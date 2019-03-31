@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-{% include components/head.html %}
-
-<body class="{{ pageClass }}">
-
-{% include components/nav.html %}
-
-{% include components/header.html %}
+---
+layout: layouts/layout.html
+---
 
 <section id="videos">
 <article>
@@ -17,16 +10,3 @@
 {% include components/video-aside.html %}
 </aside>
 </section>
-
-<div class="content">
-
-    {{ content }}
-    
-</div>
-
-<script src="/static/js/scripts.js" ></script>
-
-</body>
-</html>
-
-

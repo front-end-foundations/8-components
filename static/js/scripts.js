@@ -30,8 +30,8 @@ var addContent = function(data){
       </div>
       `
   }
-  if (document.querySelector('.content div')){
-    document.querySelector('.content div').innerHTML = looped
+  if (document.querySelector('.content .blog')){
+    document.querySelector('.content .blog').innerHTML = looped
   }
 }
 

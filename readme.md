@@ -765,8 +765,129 @@ permalink: /
 
 Remove the article section from layout.html
 
+Thinning the templates
+
+The video markdown file:
+
+```md
+---
+layout: layouts/video.html
+pageTitle: Videos
+navTitle: Videos
+date: 2019-01-01
+---
+
+[Home](/)
+```
+
+The video.html template:
+
+```
+---
+layout: layouts/layout.html
+---
+
+<section id="videos">
+<article>
+{% include components/video.html %}
+</article>
+<aside>
+{% include components/video-aside.html %}
+</aside>
+</section>
+
+```
+
+The layout template:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+{% include components/head.html %}
+
+<body class="{{ pageClass }}">
+
+{% include components/nav.html %}
+
+{% include components/header.html %}
+
+<div class="content">
+
+    <h1>{{ pageTitle }}</h1>
+
+    {{ content }}
+    
+</div>
+
+<script src="/static/js/scripts.js" ></script>
+
+</body>
+</html>
+```
+
+
 
 
 ## Notes
 
-[JAM stack](https://jamstack.org/)
+At a certain point I had to adjust the js to remove an error.
+
+```
+---
+pageClass: blog
+pageTitle: Blog
+date: 2019-03-01
+navTitle: Blog
+---
+
+<div class="blog"></div>
+```
+
+```js
+document.addEventListener('click', clickHandlers)
+
+var nyt = 'https://api.nytimes.com/svc/topstories/v2/nyregion.json?api-key=OuQiMDj0xtgzO80mtbAa4phGCAJW7GKa'
+
+function clickHandlers(){
+  if (event.target.matches('#pull')){
+    document.querySelector('body').classList.toggle('show-nav');
+    event.preventDefault();
+  }
+  if (event.target.matches('.content-video a')){
+    const iFrame = document.querySelector('iframe');
+    const videoLinks = document.querySelectorAll('.content-video a');
+    videoLinks.forEach(videoLink => videoLink.classList.remove('active'));
+    event.target.classList.add('active');
+    const videoToPlay = event.target.getAttribute('href');
+    iFrame.setAttribute('src', videoToPlay);
+    event.preventDefault();
+  }
+}
+
+var addContent = function(data){
+
+  var looped = ''
+
+  for(i=0; i<data.results.length; i++){
+    looped += `
+      <div class="item">
+        <h3>${data.results[i].title}</h3>
+        <p>${data.results[i].abstract}</p>
+      </div>
+      `
+  }
+  if (document.querySelector('.content .blog')){
+    document.querySelector('.content .blog').innerHTML = looped
+  }
+}
+
+var getData = function () {
+	fetch(nyt)
+  .then(response => response.json())
+  .then(json => addContent(json))
+}
+
+getData();
+
+```
