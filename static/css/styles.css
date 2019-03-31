@@ -199,4 +199,26 @@ header p + p {
   padding: 0.5rem;
 }
 
+.secondary {
+  background-color: #cadbe3;
+}
+
+.secondary aside ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+.secondary aside ul li {
+  flex-basis: 28%;
+  margin: 2px;
+  padding: 4px;
+  background-color: #fff;
+  border: 1px solid #dbd1b5;
+  transition: all 0.2s linear;
+}
+.secondary aside ul li:hover {
+  transform: scale(1.1);
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+}
+
 /*# sourceMappingURL=styles.css.map */

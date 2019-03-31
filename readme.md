@@ -767,7 +767,7 @@ Remove the article section from layout.html
 
 Thinning the templates
 
-The video markdown file:
+The videos.md markdown file:
 
 ```md
 ---
@@ -776,6 +776,8 @@ pageTitle: Videos
 navTitle: Videos
 date: 2019-01-01
 ---
+
+Insisting that they had taken every measure to keep the message “extra top secret,” the Trump boys reportedly spent Wednesday defending their decision to send Saudi Arabia plans for a cool missile using their personal Etch A Sketch. “We spent, like, a million hours making that rocket look super good, so we had to send it to our friends in Sunny Arabia…
 
 [Home](/)
 ```
@@ -892,6 +894,64 @@ layout: layouts/layout.html
 ---
 
 {% include components/video-section.html %}
+
+{{ content }}
+```
+
+### Image Carousel
+
+Do a DOM review of this section of the page.
+
+In `_carousel.scss`:
+
+```css
+.secondary aside {
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		align-content: space-around;
+		li {
+			flex-basis: 28%;
+			margin: 2px;
+			padding: 4px;
+			background-color: #fff;
+			border: 1px solid $dk-yellow;
+			transition: all 0.2s linear;
+			&:hover {
+				transform: scale(1.1);
+				box-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+			}
+		}
+	}
+}
+```
+
+Note transition:
+
+```css
+li img {
+	...
+	transition: all 0.2s linear;
+	&:hover {
+		transform: scale(1.1);
+		box-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+	}
+```
+
+# Content Slider 
+
+Examine the main image HTML. Improve it with HTML 5 tags `figure` and `figcaption`.
+
+```css
+figure {
+	position: relative;
+	figcaption {
+		padding: 6px;
+		background: rgba(255, 255, 255, 0.7);
+		position: absolute;
+		bottom: 0;
+	}
+}
 ```
 
 ## Notes
