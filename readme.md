@@ -826,8 +826,73 @@ The layout template:
 </html>
 ```
 
+Trim the home.html template
 
+```html
+---
+layout: layouts/layout.html
+---
 
+<section id="videos">
+<article>
+{% include components/video.html %}
+</article>
+<aside>
+{% include components/video-aside.html %}
+</aside>
+</section>
+
+<div class="content">
+
+    <h1>{{ pageTitle }}</h1>
+
+    {{ content }}
+    
+</div>
+```
+
+Final trim
+
+New video-section.html in components:
+
+```html
+<section id="videos">
+<article>
+{% include components/video.html %}
+</article>
+<aside>
+{% include components/video-aside.html %}
+</aside>
+</section>
+```
+
+Then home.html layout
+
+```html
+---
+layout: layouts/layout.html
+---
+
+{% include components/video-section.html %}
+
+<div class="content">
+
+    <h1>{{ pageTitle }}</h1>
+
+    {{ content }}
+    
+</div>
+```
+
+Then video.html layout
+
+```html
+---
+layout: layouts/layout.html
+---
+
+{% include components/video-section.html %}
+```
 
 ## Notes
 
