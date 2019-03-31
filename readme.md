@@ -57,7 +57,16 @@ We can also hook into a Github branch to set up [continuous delpoyment](https://
 
 * use the terminal to create and checkout a new branch
 
+```sh
+$ git branch dev
+$ git checkout dev
+```
+
+In the future you will be able to merge your dev branch with the master branch and have your site updated automatically.
+
 ## Header
+
+Add the first component to layout.js
 
 ```
 {% include components/header.html %}
