@@ -998,7 +998,31 @@ layout: layouts/layout.html
 {{ content }}
 ```
 
-### Image Carousel
+### Images Carousel
+
+Add `images.html` to layout
+
+```---
+layout: layouts/layout.html
+---
+
+{% include components/images.html %}
+
+{{ content }}
+```
+
+md
+
+```
+---
+layout: layouts/images.html
+pageTitle: Images
+navTitle: Images
+date: 2019-02-01
+---
+
+[Home](/)
+```
 
 Do a DOM review of this section of the page.
 
@@ -1051,6 +1075,57 @@ figure {
 		position: absolute;
 		bottom: 0;
 	}
+}
+```
+
+```js
+const carouselLinks = document.querySelectorAll('.image-tn a');
+const carouselLinksArray = [...carouselLinks];
+const carousel = document.querySelector('figure img');
+
+carouselLinksArray.forEach(carouselLink =>
+  carouselLink.addEventListener('click', runCarousel),
+);
+
+function runCarousel() {
+  const imageHref = this.getAttribute('href');
+  carousel.setAttribute('src', imageHref);
+  event.preventDefault();
+}
+```
+
+Set the text in the carousel.
+
+Find the appropriate traversal `const titleText = this.firstChild.title`:
+
+```js
+function runCarousel() {
+  const imageHref = event.target.parentNode.getAttribute('href');
+  console.log(imageHref);
+  const titleText = event.target.title;
+  console.log(titleText);
+  carousel.setAttribute('src', imageHref);
+  event.preventDefault();
+}
+```
+
+Create a pointer to the figcaption in order to manipulate its content:
+
+```js
+const carouselPara = document.querySelector('figcaption');
+```
+
+Set the innerHTML `carouselPara.innerHTML = titleText` of the paragraph:
+
+```js
+function runCarousel() {
+  const imageHref = event.target.parentNode.getAttribute('href');
+  console.log(imageHref);
+  const titleText = event.target.title;
+  console.log(titleText);
+  carousel.setAttribute('src', imageHref);
+  carouselPara.innerHTML = titleText;
+  event.preventDefault();
 }
 ```
 
