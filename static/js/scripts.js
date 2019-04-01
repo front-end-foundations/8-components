@@ -1,30 +1,10 @@
-// const carouselLinks = document.querySelectorAll('.image-tn a');
-// const carouselLinksArray = [...carouselLinks];
-// const carousel = document.querySelector('figure img');
-// const carouselPara = document.querySelector('figcaption');
-
-// carouselLinksArray.forEach(carouselLink =>
-//   carouselLink.addEventListener('click', runCarousel),
-// );
-
-// function runCarousel() {
-//   const imageHref = event.target.parentNode.getAttribute('href');
-//   console.log(imageHref);
-//   const titleText = event.target.title;
-//   console.log(titleText);
-//   carousel.setAttribute('src', imageHref);
-//   carouselPara.innerHTML = titleText;
-//   event.preventDefault();
-// }
-
 document.addEventListener('click', clickHandlers);
 
 function clickHandlers() {
   if (event.target.matches('#pull')) {
     document.querySelector('body').classList.toggle('show-nav');
     event.preventDefault();
-  }
-  if (event.target.matches('.content-video a')) {
+  } else if (event.target.matches('.content-video a')) {
     const iFrame = document.querySelector('iframe');
     const videoLinks = document.querySelectorAll('.content-video a');
     videoLinks.forEach(videoLink => videoLink.classList.remove('active'));
@@ -32,17 +12,13 @@ function clickHandlers() {
     const videoToPlay = event.target.getAttribute('href');
     iFrame.setAttribute('src', videoToPlay);
     event.preventDefault();
-  }
-  if (event.target.matches('.image-tn a')) {
-    console.log(event.target);
-    // const imageHref = event.target.parentNode.getAttribute('href');
-    // console.log(imageHref);
-    // const titleText = event.target.title;
-    // document.querySelector('figure img').setAttribute('src', imageHref);
-    // document.querySelector('figcaption').innerHTML = titleText;
+  } else if (event.target.matches('.image-tn img')) {
+    const imageHref = event.target.parentNode.getAttribute('href');
+    const titleText = event.target.title;
+    document.querySelector('figure img').setAttribute('src', imageHref);
+    document.querySelector('figcaption').innerHTML = titleText;
     event.preventDefault();
   }
-  // else event.preventDefault();
 }
 
 var addContent = function(data) {
