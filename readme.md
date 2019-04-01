@@ -204,10 +204,8 @@ header {
 ```
 
 Compare the resulting css file with the source sass file. 
-Inspect the header in the developer tools and note the *mapping*.
 
-* maps the css line numbers to the scss line numbers
-* note the line numbers in the element inspector
+Inspect the header in the developer tools and note that *mapping* maps the css line numbers to the scss line numbers
 
 ### Media Query - Mobile First
 
@@ -234,10 +232,6 @@ p {
 }
 ```
 
-Examine the resulting css. 
-
-Examine the mapping.
-
 Note: this is *not* a mobile first design pattern. It uses `max-width` to add display attributes to small screens.
 
 Change it to use a `min-width` mobile first design pattern:
@@ -257,7 +251,7 @@ p {
 
 ### Variables
 
-Create and add `_variables.scss` to imports with:
+Create `_variables.scss` in `scss/imports` with:
 
 ```
 $break-sm: 480px;
@@ -576,7 +570,7 @@ nav .active a {
 
 ## Video Component
 
-
+Add the component to `layout.html`
 
 ```html
 <section id="videos">
@@ -592,7 +586,6 @@ Format the video and buttons in `_video.scss`:
 .content-video {
 	iframe {
     background: #222;
-    padding: 1rem;
   }
 	.btn-list {
 		padding: 6px;
@@ -609,6 +602,8 @@ Format the video and buttons in `_video.scss`:
 	}
 }
 ```
+
+In `base`
 
 ```css
 img,
@@ -644,7 +639,7 @@ const videoLinks = document.querySelectorAll('.content-video a');
 videoLinks.forEach(videoLink => videoLink.addEventListener('click', selectVideo));
 
 function selectVideo() {
-	console.log(this);
+	console.log(event.target);
 	event.preventDefault();
 }
 ```
@@ -669,7 +664,7 @@ videoLinks.forEach(videoLink =>
 );
 
 function selectVideo() {
-	const videoToPlay = this.getAttribute('href');
+	const videoToPlay = event.target.getAttribute('href');
 	console.log(videoToPlay);
 	event.preventDefault();
 }
@@ -691,7 +686,7 @@ const videoLinks = document.querySelectorAll('.content-video a');
 videoLinks.forEach(videoLink => videoLink.addEventListener('click', selectVideo));
 
 function selectVideo() {
-	const videoToPlay = this.getAttribute('href');
+	const videoToPlay = event.target.getAttribute('href');
 	iFrame.setAttribute('src', videoToPlay); // NEW
 	console.log(iFrame); // NEW
 	event.preventDefault();
@@ -708,7 +703,7 @@ videoLinks.forEach(videoLink => videoLink.addEventListener('click', selectVideo)
 function selectVideo() {
 	removeActiveClass(); // NEW
 	this.classList.add('active'); // NEW
-	const videoToPlay = this.getAttribute('href');
+	const videoToPlay = event.target.getAttribute('href');
 	iFrame.setAttribute('src', videoToPlay);
 	event.preventDefault();
 }
@@ -740,18 +735,52 @@ function clickHandlers(){
 }
 ```
 
+Add the video section to the video page without the aside.
+
+Split the video.html component into viideo-article.html and video-aside.html in the components folder.
+
+video-article
+
+```html
+<div class="content-video">
+  <iframe src="https://player.vimeo.com/video/326317981" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+  <ul class="btn-list">
+    <li>
+      <a class="active" href="https://player.vimeo.com/video/326317981">Waves</a>
+    </li>
+    <li>
+      <a href="https://player.vimeo.com/video/323437908">Gauchos</a>
+    </li>
+    <li>
+      <a href="https://player.vimeo.com/video/315298268">Pueblo Textil</a>
+    </li>
+  </ul>
+</div>
+```
+
+video-aside
+
+```html
+<h2>Videos About People</h2>
+<p><strong>Waves</strong> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<p><strong>Gauchos</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+<p><strong>True Love in Pueblo Textil</strong> Nine-year-old Maribel explains to us how it feels to be stricken with the world's oldest infliction: love.</p>
+```
+
 Make an aside
 
 ```html
 <section id="videos">
 <article>
-{% include components/video.html %}
+{% include components/video-article.html %}
 </article>
 <aside>
 {% include components/video-aside.html %}
 </aside>
 </section>
 ```
+
+Add to base
 
 ```css
 section {
