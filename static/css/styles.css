@@ -625,6 +625,22 @@ a:hover {
   text-decoration: underline;
 }
 
+@media (min-width: 768px) {
+  section {
+    max-width: 980px;
+    margin: 0 auto;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 3fr 2fr;
+        grid-template-columns: 3fr 2fr;
+    grid-column-gap: 2rem;
+    padding-top: 2rem;
+  }
+  section article iframe {
+    min-height: 300px;
+  }
+}
+
 .content {
   border-radius: 4px;
   max-width: 980px;
@@ -780,7 +796,6 @@ header p + p {
 
 .content-video iframe {
   background: #222;
-  padding: 1rem;
 }
 
 .content-video .btn-list {

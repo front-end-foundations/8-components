@@ -33,6 +33,22 @@ a:hover {
   text-decoration: underline;
 }
 
+section {
+  @media(min-width: $break-med){
+    max-width: $max-width;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    grid-column-gap: 2rem;
+    padding-top: 2rem;
+    article {
+      iframe {
+        min-height: 300px;
+      }
+    }
+  }
+}
+
 .content {
   border-radius: 4px;
   max-width: 980px;

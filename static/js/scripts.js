@@ -1,23 +1,3 @@
-const iFrame = document.querySelector('iframe');
-const videoLinks = document.querySelectorAll('.content-video a');
-videoLinks.forEach(videoLink =>
-  videoLink.addEventListener('click', selectVideo),
-);
-
-function selectVideo() {
-  removeActiveClass(); // NEW
-  this.classList.add('active'); // NEW
-  const videoToPlay = event.target.getAttribute('href');
-  iFrame.setAttribute('src', videoToPlay);
-  event.preventDefault();
-}
-
-// NEW
-
-function removeActiveClass() {
-  videoLinks.forEach(videoLink => videoLink.classList.remove('active'));
-}
-
 document.addEventListener('click', clickHandlers);
 
 var nyt =
@@ -28,7 +8,15 @@ function clickHandlers() {
     document.querySelector('body').classList.toggle('show-nav');
     event.preventDefault();
   }
-  // event.preventDefault();
+  if (event.target.matches('.content-video a')) {
+    const iFrame = document.querySelector('iframe');
+    const videoLinks = document.querySelectorAll('.content-video a');
+    videoLinks.forEach(videoLink => videoLink.classList.remove('active'));
+    event.target.classList.add('active');
+    const videoToPlay = event.target.getAttribute('href');
+    iFrame.setAttribute('src', videoToPlay);
+    event.preventDefault();
+  }
 }
 
 var addContent = function(data) {

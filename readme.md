@@ -586,7 +586,6 @@ Format the video and buttons in `_video.scss`:
 .content-video {
 	iframe {
     background: #222;
-    padding: 1rem;
   }
 	.btn-list {
 		padding: 6px;
@@ -736,18 +735,52 @@ function clickHandlers(){
 }
 ```
 
+Add the video section to the video page without the aside.
+
+Split the video.html component into viideo-article.html and video-aside.html in the components folder.
+
+video-article
+
+```html
+<div class="content-video">
+  <iframe src="https://player.vimeo.com/video/326317981" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+  <ul class="btn-list">
+    <li>
+      <a class="active" href="https://player.vimeo.com/video/326317981">Waves</a>
+    </li>
+    <li>
+      <a href="https://player.vimeo.com/video/323437908">Gauchos</a>
+    </li>
+    <li>
+      <a href="https://player.vimeo.com/video/315298268">Pueblo Textil</a>
+    </li>
+  </ul>
+</div>
+```
+
+video-aside
+
+```html
+<h2>Videos About People</h2>
+<p><strong>Waves</strong> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<p><strong>Gauchos</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+<p><strong>True Love in Pueblo Textil</strong> Nine-year-old Maribel explains to us how it feels to be stricken with the world's oldest infliction: love.</p>
+```
+
 Make an aside
 
 ```html
 <section id="videos">
 <article>
-{% include components/video.html %}
+{% include components/video-article.html %}
 </article>
 <aside>
 {% include components/video-aside.html %}
 </aside>
 </section>
 ```
+
+Add to base
 
 ```css
 section {
