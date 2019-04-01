@@ -815,4 +815,43 @@ header p + p {
   color: #fff;
   padding: 0.5rem;
 }
+
+.secondary aside ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-line-pack: distribute;
+      align-content: space-around;
+}
+
+.secondary aside ul li {
+  -ms-flex-preferred-size: 28%;
+      flex-basis: 28%;
+  margin: 2px;
+  padding: 4px;
+  background-color: #fff;
+  border: 1px solid #dbd1b5;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+
+.secondary aside ul li:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+          box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+figure {
+  position: relative;
+}
+
+figure figcaption {
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.7);
+  position: absolute;
+  bottom: 0;
+}
 /*# sourceMappingURL=styles.css.map */
