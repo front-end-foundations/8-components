@@ -704,7 +704,7 @@ videoLinks.forEach(videoLink => videoLink.addEventListener('click', selectVideo)
 function selectVideo() {
 	removeActiveClass(); // NEW
 	this.classList.add('active'); // NEW
-	const videoToPlay = this.getAttribute('href');
+	const videoToPlay = event.target.getAttribute('href');
 	iFrame.setAttribute('src', videoToPlay);
 	event.preventDefault();
 }
