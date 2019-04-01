@@ -604,6 +604,8 @@ Format the video and buttons in `_video.scss`:
 }
 ```
 
+In `base`
+
 ```css
 img,
 iframe {
@@ -638,7 +640,7 @@ const videoLinks = document.querySelectorAll('.content-video a');
 videoLinks.forEach(videoLink => videoLink.addEventListener('click', selectVideo));
 
 function selectVideo() {
-	console.log(this);
+	console.log(event.target);
 	event.preventDefault();
 }
 ```
@@ -663,7 +665,7 @@ videoLinks.forEach(videoLink =>
 );
 
 function selectVideo() {
-	const videoToPlay = this.getAttribute('href');
+	const videoToPlay = event.target.getAttribute('href');
 	console.log(videoToPlay);
 	event.preventDefault();
 }
@@ -685,7 +687,7 @@ const videoLinks = document.querySelectorAll('.content-video a');
 videoLinks.forEach(videoLink => videoLink.addEventListener('click', selectVideo));
 
 function selectVideo() {
-	const videoToPlay = this.getAttribute('href');
+	const videoToPlay = event.target.getAttribute('href');
 	iFrame.setAttribute('src', videoToPlay); // NEW
 	console.log(iFrame); // NEW
 	event.preventDefault();

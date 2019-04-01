@@ -1,0 +1,19 @@
+.content-video {
+	iframe {
+    background: #222;
+    padding: 1rem;
+  }
+	.btn-list {
+		padding: 6px;
+		display: flex;
+		li {
+			margin: 1rem;
+		}
+		.active {
+			border-radius: 4px;
+			background: $link;
+			color: #fff;
+			padding: 0.5rem;
+		}
+	}
+}

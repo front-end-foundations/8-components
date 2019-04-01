@@ -607,8 +607,13 @@ body {
   color: #fff;
 }
 
-img {
+img,
+iframe {
   width: 100%;
+}
+
+ul {
+  list-style: none;
 }
 
 a {
@@ -771,5 +776,28 @@ header p + p {
   font-size: 1rem;
   line-height: 1.1;
   color: #999;
+}
+
+.content-video iframe {
+  background: #222;
+  padding: 1rem;
+}
+
+.content-video .btn-list {
+  padding: 6px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.content-video .btn-list li {
+  margin: 1rem;
+}
+
+.content-video .btn-list .active {
+  border-radius: 4px;
+  background: #007eb6;
+  color: #fff;
+  padding: 0.5rem;
 }
 /*# sourceMappingURL=styles.css.map */

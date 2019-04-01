@@ -6,6 +6,7 @@
   "scripts": {
     "eleventy": "eleventy --serve",
     "sass": "sass ignore/scss/styles.scss _site/static/css/styles.css --watch --source-map",
+    "sassier": "sass ignore/scss/styles.scss /static/css/styles.css",
     "start": "npm run eleventy & npm run sass"
   },
   "keywords": [],
