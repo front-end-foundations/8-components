@@ -822,7 +822,7 @@ section {
 }
 ```
 
-We want the video section to appear on onkly the home page and in the video page.
+We want the video section to appear on only the home page and in the video page.
 
 Create home.html and video.html from the layout.html template.
 
@@ -832,12 +832,28 @@ Use these templates for rendering e.g.:
 ---
 layout: layouts/home.html
 pageTitle: Home
-tags:
-  - nav
 navTitle: Home
 date: 2010-01-01
 permalink: /
 ---
+
+{% for page in collections.pages %}
+  <h2><a href="{{ page.url }}">{{ page.data.pageTitle | upcase }}</a></h2>
+  <em>{{ page.date | date: "%Y-%m-%d" }}</em>
+{% endfor %}
+```
+
+```yaml
+---
+layout: layouts/video.html
+pageTitle: Videos
+navTitle: Videos
+date: 2019-01-01
+---
+
+## Coming soon.
+
+[Home](/)
 ```
 
 Remove the article section from layout.html
@@ -861,19 +877,20 @@ Insisting that they had taken every measure to keep the message “extra top sec
 
 The video.html template:
 
-```
+```html
 ---
 layout: layouts/layout.html
 ---
 
 <section id="videos">
 <article>
-{% include components/video.html %}
+{% include components/video-article.html %}
 </article>
 <aside>
 {% include components/video-aside.html %}
 </aside>
 </section>
+
 
 ```
 
@@ -914,7 +931,7 @@ layout: layouts/layout.html
 
 <section id="videos">
 <article>
-{% include components/video.html %}
+{% include components/video-article.html %}
 </article>
 <aside>
 {% include components/video-aside.html %}
@@ -930,6 +947,12 @@ layout: layouts/layout.html
 </div>
 ```
 
+Add a class to the blog div to prevent issue.
+
+`<div class="blog"></div>`
+
+`document.querySelector('.content .blog').innerHTML = looped;`
+
 Final trim
 
 New video-section.html in components:
@@ -937,7 +960,7 @@ New video-section.html in components:
 ```html
 <section id="videos">
 <article>
-{% include components/video.html %}
+{% include components/video-article.html %}
 </article>
 <aside>
 {% include components/video-aside.html %}

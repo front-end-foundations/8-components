@@ -30,7 +30,7 @@ var addContent = function(data) {
       </div>
       `;
   }
-  document.querySelector('.content div').innerHTML = looped;
+  document.querySelector('.content .blog').innerHTML = looped;
 };
 
 var getData = function() {
