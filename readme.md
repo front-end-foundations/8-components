@@ -16,6 +16,8 @@ Our hypothetical company has a site the looks outdated, is not responsive and ne
 
 We will be using many of the files and techniques we looked at last week. Before beginning, examine the changes.
 
+A bit of work-in-progress is available [here](https://confident-bell-a14295.netlify.com/).
+
 * .gitignore - now includes the `_site` directory (not critical - just pointing it out)
 * pages - instead of post we now have a pages collection - better naming convention than posts
 * components - inside the `_includes` directory - breaking down a site into smaller parts is a key skill
