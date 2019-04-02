@@ -1,9 +1,17 @@
+
+
+
 document.addEventListener('click', clickHandlers)
 
 var nyt = 'https://api.nytimes.com/svc/topstories/v2/nyregion.json?api-key=OuQiMDj0xtgzO80mtbAa4phGCAJW7GKa'
 
 function clickHandlers(){
-
+  console.log(event.target)
+  if (event.target.matches('#pull')){
+    document.querySelector('body').classList.toggle('show-nav');
+    event.preventDefault();
+  }
+  // event.preventDefault();
 }
 
 var addContent = function(data){

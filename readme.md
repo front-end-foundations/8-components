@@ -268,6 +268,17 @@ p {
 }
 ```
 
+Git add, commit, merge and push the branch to deloy the changes.
+
+```sh
+$ git add .
+$ git commit -m 'added header'
+$ git status
+$ git checkout master
+$ git merge dev
+$ git push -u origin master
+```
+
 ### Variables
 
 Create `_variables.scss` in `scss/imports` with:
@@ -289,11 +300,41 @@ $dk-yellow: #dbd1b5;
 
 Import it into `styles.scss`. Be sure to import it first in order to make the variables available to the subsequent imports.
 
-Apply the color and break point variables to `_header.scss`.
+Apply the color and break point variables to `_header.scss`
+
+```css
+header {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding-top: 2rem;
+  h1 {
+    font-size: 2.5rem;
+  }
+  p {
+    display: none;
+    @media (min-width: $break-med){
+      display: block;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+  }
+  h1 + p {
+    padding-top: 1rem;
+    border-top: 3px double $dk-yellow;
+  }
+  p + p {
+    font-size: 1rem;
+    line-height: 1.1;
+    color: $med-gray;
+  }
+}
+```
 
 ## Responsive Main Nav
 
-Note the link `<a href="#" id="pull"></a>` in the nav. We will use this to show a menu on small screens:
+Note the link `<a href="#" id="pull"></a>` in the nav. 
 
 ```html
   <nav>
@@ -303,6 +344,8 @@ Note the link `<a href="#" id="pull"></a>` in the nav. We will use this to show 
     </ul>
   </nav>
 ```
+
+We will use this to show a menu on small screens.
 
 * create a sass partial `_nav.scss` 
 * import it into `styles.css` with `@import 'imports/nav';`
@@ -379,6 +422,10 @@ nav a {
   color: #fff;
 }
 
+nav a:hover {
+  text-decoration: none;
+}
+
 nav .active a {
   font-weight: bold;
 }
@@ -426,7 +473,7 @@ nav .active {
 }
 ```
 
-Don't like the hover on an active tab?
+Change the hover on an active tab
 
 ```css
 nav li {
@@ -455,7 +502,7 @@ function showMenu(){
 }
 ```
 
-or
+or, using event delegation:
 
 ```js
 function clickHandlers(){
@@ -468,7 +515,7 @@ function clickHandlers(){
 }
 ```
 
-Add a .showme class to the `_navigation.scss`:
+Add a .show-nav class to the `_nav.scss`:
 
 ```css
 .show-nav nav ul {
@@ -586,6 +633,10 @@ nav .active a {
 	width: 100%;
 }
 ```
+
+Make any addition adjustments.
+
+Note: if we were using React or Angular or Vue to make a single ppage app (SPA) we would have to code the menu to disappear when a selection was made. But because we are actually navigating to a new URL, the menu collapses naturally.
 
 ## Video Component
 
