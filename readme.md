@@ -1,8 +1,8 @@
 # VII - Components
 
-** Download the zip file **
-
 Log in to Github and create an empty repo called components.
+
+** Download the zip file **
 
 ## Homework
 
@@ -10,7 +10,7 @@ Work on a final project. See session 7 for guidelines (TLDR - few).
 
 ## Exercise - A Site Redesign
 
-Our hypothetical company has a site the looks outdated and not responsive.
+Our hypothetical company has a site the looks outdated, is not responsive and needs updated content.
 
 ![site](ignore/other/wide.png)
 
@@ -25,9 +25,9 @@ We will be using many of the files and techniques we looked at last week. Before
 * .eleventy.js - passthroughs for images, JS and CSS in the static directory
 * scripts.js - removed dependency on pressing a button and call the function directly (produces an error in the console on every page except Blog)
 
-I have renamed the pages from last class.
+I have renamed the pages:
 
-* the ajax page is now called blog
+* the ajax page is now called Blog
 * there is a new videos page
 * the `pages.json` file (formerly `posts.json`) now tags all files in the pages folder as follows:
 
