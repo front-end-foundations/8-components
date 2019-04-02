@@ -634,7 +634,7 @@ nav .active a {
 }
 ```
 
-Make any addition adjustments.
+Make any additional adjustments.
 
 Note: if we were using React or Angular or Vue to make a single ppage app (SPA) we would have to code the menu to disappear when a selection was made. But because we are actually navigating to a new URL, the menu collapses naturally.
 
@@ -650,7 +650,7 @@ Add the component to `layout.html`
 </section>
 ```
 
-Format the video and buttons in `_video.scss`:
+Format the video and buttons in a new `_video.scss`:
 
 ```css
 .content-video {
@@ -661,7 +661,10 @@ Format the video and buttons in `_video.scss`:
 		padding: 6px;
 		display: flex;
 		li {
-			margin: 1rem;
+      margin: 1rem;
+      a {
+        text-decoration: none;
+      }
 		}
 		.active {
 			border-radius: 4px;
@@ -685,6 +688,8 @@ ul {
   list-style: none;
 }
 ```
+
+Clicking the buttons should reveal a different video.
 
 Create variables and spread the links into an array.
 
@@ -716,7 +721,7 @@ function selectVideo() {
 
 Examine the nodelist in the console.
 
-Note that you can create a true Array from it by declaring a new variable and spreading the contents on the nodeList into it:
+Note that you can create a true Array from a nodelist by declaring a new variable and spreading the contents on the nodeList into it:
 
 `videoLinksArray = [...videoLinks]`
 
@@ -724,7 +729,7 @@ or, for maximum compatibility:
 
 `const videoLinks = Array.from(document.querySelectorAll('.content-video a'));`
 
-Isolate the `href` value:
+Isolate the `href` value using `getAttribute`:
 
 ```js
 const videoLinks = Array.from(document.querySelectorAll('.content-video a'));
@@ -805,11 +810,11 @@ function clickHandlers(){
 }
 ```
 
-Add the video section to the video page without the aside.
+We want to add the video section to the video page without the aside.
 
 Split the video.html component into viideo-article.html and video-aside.html in the components folder.
 
-video-article
+`components/video-article`
 
 ```html
 <div class="content-video">
@@ -828,7 +833,7 @@ video-article
 </div>
 ```
 
-video-aside
+`components/video-aside`
 
 ```html
 <h2>Videos About People</h2>
@@ -837,7 +842,7 @@ video-aside
 <p><strong>True Love in Pueblo Textil</strong> Nine-year-old Maribel explains to us how it feels to be stricken with the world's oldest infliction: love.</p>
 ```
 
-Make an aside
+In `layout.html`, call the two new components
 
 ```html
 <section id="videos">
@@ -850,7 +855,7 @@ Make an aside
 </section>
 ```
 
-Add to base
+Add to base.scss (wide screen only)
 
 ```css
 section {
@@ -870,33 +875,12 @@ section {
 }
 ```
 
-
-```css
-.content-video {
-	iframe {
-    background: #222;
-  }
-	.btn-list {
-		padding: 6px;
-		display: flex;
-		li {
-			margin: 1rem;
-		}
-		.active {
-			border-radius: 4px;
-			background: $link;
-			color: #fff;
-			padding: 0.5rem;
-		}
-	}
-}
-```
-
 We want the video section to appear on only the home page and in the video page.
 
-Create home.html and video.html from the layout.html template.
+* Save out two copies of `layout.html` as `layouts/home.html` and `layouts/video.html`
+* Use these templates for rendering e.g.:
 
-Use these templates for rendering e.g.:
+`pages/home.md`
 
 ```yaml
 ---
@@ -912,6 +896,8 @@ permalink: /
   <em>{{ page.date | date: "%Y-%m-%d" }}</em>
 {% endfor %}
 ```
+
+and `pages/videos.md`
 
 ```yaml
 ---
@@ -960,8 +946,6 @@ layout: layouts/layout.html
 {% include components/video-aside.html %}
 </aside>
 </section>
-
-
 ```
 
 The layout template:

@@ -15,8 +15,13 @@ body {
   color: #fff;
 }
 
-img {
+img,
+iframe {
   width: 100%;
+}
+
+ul {
+  list-style: none;
 }
 
 a {
@@ -26,6 +31,22 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+section {
+  @media(min-width: $break-med){
+    max-width: $max-width;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    grid-column-gap: 2rem;
+    padding-top: 2rem;
+    article {
+      iframe {
+        min-height: 300px;
+      }
+    }
+  }
 }
 
 .content {
