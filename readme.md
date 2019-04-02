@@ -24,10 +24,12 @@ We will be using many of the files and techniques we looked at last week. Before
 * static directory - reorganized assets
 * .eleventy.js - passthroughs for images, JS and CSS in the static directory
 * scripts.js - removed dependency on pressing a button and call the function directly (produces an error in the console on every page except Blog)
+* `home.md` uses a permalink (`/`) in the front matter which means it will not render to its own directory in the _site folder but will instead render to the top level (i.e. it becomes our main `index.html`)
 
 I have renamed the pages:
 
 * the ajax page is now called Blog
+* `pages/blog.html` is the only page that uses a `pageClass: blog` property (which, in turn, works with the template's `<body class="{{ pageClass }}">`)
 * there is a new videos page
 * the `pages.json` file (formerly `posts.json`) now tags all files in the pages folder as follows:
 
@@ -85,7 +87,7 @@ Make sure the branch is clean, then checkout the main (master) branch and push t
 $ git add .
 $ git commit -m 'commit message'
 $ git checkout master
-$ git oush -u origin master
+$ git push -u origin master
 ```
 
 ## Header
@@ -136,6 +138,8 @@ Install sass
 $ npm i -D sass
 ```
 
+Note: `i` is short for `install` and `-D` is short for `--save-dev`
+
 Add to scripts:
 
 ```js
@@ -159,7 +163,11 @@ Add to scripts:
 }
 ```
 
-And stop (`ctrl-c`) and restart (`npm start`) the processes
+CSS minifcation can be added since the `_site` folder is our production version
+
+`"sass": "sass ignore/scss/styles.scss static/css/styles.css --watch --source-map --style=compressed",`
+
+Stop (`ctrl-c`) and restart (`npm start`) the processes.
 
 Call the sass partial from `styles.scss`
 
@@ -169,9 +177,6 @@ Call the sass partial from `styles.scss`
 @import 'imports/base';
 ```
 
-CSS minifcation can be added since the `_site` folder is our production version
-
-`"sass": "sass ignore/scss/styles.scss static/css/styles.css --watch --source-map --style=compressed",`
 
 ## Using Live SASS Compiler
 
@@ -203,7 +208,7 @@ Note: since we are compiling the css directly to the `_site` folder, there is no
 
 ## Nesting SASS
 
-Cut the header CSS from the base file and refactor the css in `_header.scss` file to use nesting.  
+Cut/Add the header CSS from the base file and refactor the css in `_header.scss` file to use nesting.  
 
 ```css
 header {
@@ -277,7 +282,7 @@ p {
 }
 ```
 
-Git add, commit, merge and push the branch to deloy the changes.
+Git add, commit, merge and push the branch to deploy the changes.
 
 ```sh
 $ git add .
@@ -358,9 +363,9 @@ We will use this to show a menu on small screens.
 
 * create a sass partial `_nav.scss` 
 * import it into `styles.css` with `@import 'imports/nav';`
-* remove all references to nav in `_base.scss`
+* IMPORTANT - remove all references to nav in `_base.scss`
 
-Small screen - hide the navigation
+Small screen first - hide the navigation
 
 ```css
 nav {
@@ -400,7 +405,7 @@ Hide the hamburger on wider screens:
 ```css
 #pull {
 	🔥
-	@media (min-width: $break-sm) {
+	@media (min-width: $break-med) {
 		display: none;
 	}
 }
@@ -412,7 +417,7 @@ Show the navigation on large screens:
 nav ul {
   display: none;
   list-style: none;
-  @media (min-width: $break-sm){
+  @media (min-width: $break-med){
     display: flex;
     justify-content: space-between;
     background: $link;
@@ -447,7 +452,7 @@ Format the list items (horizontal display) and add a hover effect using SASS amp
 ```css
 nav li {
   padding: 1rem;
-  @media (min-width: $break-sm){
+  @media (min-width: $break-med){
     flex-grow: 1;
     &:hover {
       background-color: darken( $link, 10% );
@@ -456,7 +461,9 @@ nav li {
 }
 ```
 
-Note the use of flex-grow to allow the li's to expand. Note that the hover effect is not clickable.
+Note the use of flex-grow to allow the li's to expand. Note that the entire hover effect area is not clickable.
+
+We will transfer the padding to the links and set them to display block so they fill the entire width and height of their container.
 
 ```css
 nav li {
@@ -495,9 +502,11 @@ nav li {
 }
 ```
 
+Note: this selector compiles to `nav li:hover:not(.active)`
+
 ### Show/Hide Nav
 
-Edit our scripts:
+Add to the top of `static/js/scripts`:
 
 ```js
 var hamburger = document.querySelector('#pull')
@@ -568,13 +577,13 @@ nav {
 
 Check the navigation on both sizes and make adjustments as necessary.
 
+Add a background color to the `ul`, move the highlight effect to the small screen and more.
+
 ```css
-nav {
-  background-color: $link;
-}
 nav ul {
   display: none;
   list-style: none;
+  // NEW
   background-color: $link;
   @media (min-width: $break-med){
     display: flex;
@@ -645,19 +654,19 @@ nav .active a {
 
 Make any additional adjustments.
 
-Note: if we were using React or Angular or Vue to make a single ppage app (SPA) we would have to code the menu to disappear when a selection was made. But because we are actually navigating to a new URL, the menu collapses naturally.
+Note: if we were using React or Angular or Vue to make a single page app (SPA) we would have to code the menu to disappear when a selection was made. But because we are actually navigating to a new URL, the menu collapses naturally.
 
 ## Video Component
 
 Add the component to `layout.html`
 
 ```html
-<section id="videos">
-<article>
-{% include components/video.html %}
-</article>
+<section>
+  {% include components/video.html %}
 </section>
 ```
+
+Examine the component's HTML.
 
 Format the video and buttons in a new `_video.scss`:
 
@@ -703,7 +712,6 @@ Clicking the buttons should reveal a different video.
 Create variables and spread the links into an array.
 
 ```js
-// Video switcher
 const videoLinks = document.querySelectorAll('.content-video a');
 
 videoLinks.forEach(videoLink =>
@@ -722,21 +730,33 @@ Add a `selectVideo` function:
 const videoLinks = document.querySelectorAll('.content-video a');
 videoLinks.forEach(videoLink => videoLink.addEventListener('click', selectVideo));
 
+  // for (let i = 0; i < videoLinks.length; i++){
+  //   videoLinks[i].addEventListener('click', selectVideo)
+  // }
+
 function selectVideo() {
 	console.log(event.target);
 	event.preventDefault();
 }
 ```
 
+Note: we are using `forEach` - a method that exists for both nodeLists and Arrays - as a replacement for a traditional for loop (commented out). 
+
 Examine the nodelist in the console.
 
-Note that you can create a true Array from a nodelist by declaring a new variable and spreading the contents on the nodeList into it:
+Iterable Nodelists are a relatively new feature in JavaScript.
 
-`videoLinksArray = [...videoLinks]`
+If you were concerned about compatibility you could create a true Array from a nodelist by declaring a new variable and spreading the contents on the nodeList into it:
 
-or, for maximum compatibility:
+`const videoLinksArray = [...videoLinks]`
+
+And operate on that. But the spread operator (`...`) is also a relatively new feature.
+
+For maximum compatibility use `Array.from()`:
 
 `const videoLinks = Array.from(document.querySelectorAll('.content-video a'));`
+
+### Getting and Setting HTML Attributes
 
 Isolate the `href` value using `getAttribute`:
 
@@ -793,13 +813,14 @@ function selectVideo() {
 }
 
 // NEW
-
 function removeActiveClass() {
 	videoLinks.forEach(videoLink => videoLink.classList.remove('active'));
 }
 ```
 
-Plug into event delegation:
+For performance reasons, you also should not loop over each element and attach an even listener to it. 
+
+Use event delegation:
 
 ```js
 function clickHandlers(){
@@ -819,11 +840,37 @@ function clickHandlers(){
 }
 ```
 
-We want to add the video section to the video page without the aside.
+Note: our clickHandlers function is getting out of hand. You could use a separate function to tame it a bit:
 
-Split the video.html component into viideo-article.html and video-aside.html in the components folder.
+```js
+function clickHandlers(){
+  if (event.target.matches('#pull')){
+    document.querySelector('body').classList.toggle('show-nav');
+    event.preventDefault();
+  }
+  if (event.target.matches('.content-video a')){
+    videoSwitch()
+    event.preventDefault();
+  }
+}
 
-`components/video-article`
+var videoSwitch = function () {
+  const iFrame = document.querySelector('iframe');
+    const videoLinks = document.querySelectorAll('.content-video a');
+    videoLinks.forEach(videoLink => videoLink.classList.remove('active'));
+    event.target.classList.add('active');
+    const videoToPlay = event.target.getAttribute('href');
+    iFrame.setAttribute('src', videoToPlay);
+}
+```
+
+## Refactoring Components
+
+Suppose we want to remove the video content from all pages except Home and Videos. We also want to add the video section to the video page without the aside.
+
+Split the video.html component into video-article.html and video-aside.html in the components folder.
+
+Create `components/video-article`
 
 ```html
 <div class="content-video">
@@ -842,7 +889,7 @@ Split the video.html component into viideo-article.html and video-aside.html in 
 </div>
 ```
 
-`components/video-aside`
+Create `components/video-aside`
 
 ```html
 <h2>Videos About People</h2>
@@ -851,16 +898,16 @@ Split the video.html component into viideo-article.html and video-aside.html in 
 <p><strong>True Love in Pueblo Textil</strong> Nine-year-old Maribel explains to us how it feels to be stricken with the world's oldest infliction: love.</p>
 ```
 
-In `layout.html`, call the two new components
+In `layout.html`, include the two new components using article and aside tags
 
 ```html
-<section id="videos">
-<article>
-{% include components/video-article.html %}
-</article>
-<aside>
-{% include components/video-aside.html %}
-</aside>
+<section>
+  <article>
+    {% include components/video-article.html %}
+  </article>
+  <aside>
+    {% include components/video-aside.html %}
+  </aside>
 </section>
 ```
 
@@ -921,11 +968,13 @@ date: 2019-01-01
 [Home](/)
 ```
 
-Remove the article section from layout.html
+Now `home.md` and `videos.md` are using the new layouts (layouts vs components).
 
-Thinning the templates
+Remove the article section from `layout.html` so it doesn't render on all pages.
 
-The videos.md markdown file:
+### Thinning the Templates
+
+The `videos.md` markdown file:
 
 ```md
 ---
@@ -940,7 +989,9 @@ Insisting that they had taken every measure to keep the message “extra top sec
 [Home](/)
 ```
 
-The video.html template:
+There is a lot of duplication going on. Let's pass the `video.html` template into `layout.html` for processing.
+
+The `video.html` template:
 
 ```html
 ---
@@ -957,35 +1008,33 @@ layout: layouts/layout.html
 </section>
 ```
 
-The layout template:
+_NOTE_: our ajax file is overwriting the contents of our div and needs a touch up.
 
-```html
-<!DOCTYPE html>
-<html lang="en">
+Target a div with a class of blog in the JS:
 
-{% include components/head.html %}
-
-<body class="{{ pageClass }}">
-
-{% include components/nav.html %}
-
-{% include components/header.html %}
-
-<div class="content">
-
-    <h1>{{ pageTitle }}</h1>
-
-    {{ content }}
-    
-</div>
-
-<script src="/static/js/scripts.js" ></script>
-
-</body>
-</html>
+```js
+  if (document.querySelector('.content .blog')) {
+    document.querySelector('.content .blog').innerHTML = looped
+  }
 ```
 
-Trim the home.html template
+And apply that class to the blog page file:
+
+
+```html
+---
+pageClass: blog
+pageTitle: Blog
+date: 2019-03-01
+navTitle: Blog
+---
+
+<div class="blog"></div>
+```
+
+Perform the same thinning process for the `home.html` template.
+
+Trim the `home.html` template
 
 ```html
 ---
@@ -1010,15 +1059,9 @@ layout: layouts/layout.html
 </div>
 ```
 
-Add a class to the blog div to prevent issue.
+### Final trim
 
-`<div class="blog"></div>`
-
-`document.querySelector('.content .blog').innerHTML = looped;`
-
-Final trim
-
-New video-section.html in components:
+New `video-section.html` in components:
 
 ```html
 <section id="videos">
@@ -1031,7 +1074,7 @@ New video-section.html in components:
 </section>
 ```
 
-Then home.html layout
+Then in the `home.html` layout
 
 ```html
 ---
@@ -1049,23 +1092,26 @@ layout: layouts/layout.html
 </div>
 ```
 
-Then video.html layout
+Then the `video.html` layout
 
 ```html
 ---
 layout: layouts/layout.html
 ---
 
-{% include components/video-section.html %}
+{% include components/video-article.html %}
 
 {{ content }}
 ```
 
-### Images Carousel
+## Time Permitting
 
-Add `images.html` to layout
+## Images Carousel
 
-```---
+Add and new layout file `images.html` to layouts
+
+```
+---
 layout: layouts/layout.html
 ---
 
@@ -1074,7 +1120,7 @@ layout: layouts/layout.html
 {{ content }}
 ```
 
-md
+In `images.md`
 
 ```
 ---
@@ -1089,7 +1135,7 @@ date: 2019-02-01
 
 Do a DOM review of this section of the page.
 
-In `_carousel.scss`:
+In a new `_carousel.scss`:
 
 ```css
 .secondary aside {
@@ -1125,16 +1171,17 @@ li img {
 	}
 ```
 
-# Content Slider 
+### Content Slider 
 
-Examine the main image HTML. Improve it with HTML 5 tags `figure` and `figcaption`.
+The large image on the images page
 
 ```css
 figure {
 	position: relative;
 	figcaption {
-		padding: 6px;
-		background: rgba(255, 255, 255, 0.7);
+		padding: 1rem;
+    background: rgba(0,0,0, 0.7);
+    color: #fff;
 		position: absolute;
 		bottom: 0;
 	}
