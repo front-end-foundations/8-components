@@ -28,6 +28,7 @@ We will be using many of the files and techniques we looked at last week. Before
 I have renamed the pages:
 
 * the ajax page is now called Blog
+* `pages/blog.html` is the only page that uses a `pageClass: blog` property (which, in turn, works with the template's `<body class="{{ pageClass }}">`)
 * there is a new videos page
 * the `pages.json` file (formerly `posts.json`) now tags all files in the pages folder as follows:
 
@@ -55,7 +56,7 @@ Run the project:
 $ npm run eleventy
 ```
 
-And open the side in Chrome.
+And open the site in Chrome.
 
 Create a new Github repo and add the remote origin to the repo following the instructions on Github.
 
@@ -79,15 +80,24 @@ $ git checkout dev
 
 In the future you will be able to merge your dev branch with the master branch and have your site updated automatically.
 
+Make sure the branch is clean, then checkout the main (master) branch and push to Github. Netlify will take over from there - running the eleventy command to create a `_site` folder and putting that on its CDN.
+
+```sh
+$ git add .
+$ git commit -m 'commit message'
+$ git checkout master
+$ git oush -u origin master
+```
+
 ## Header
 
-Add the first component to `layout.js`
+Add the first component to `layout.js` after the nav include
 
 ```
 {% include components/header.html %}
 ```
 
-And the following to `styles.css`
+And the following to `static/css/styles.css`
 
 ```css
 header {
