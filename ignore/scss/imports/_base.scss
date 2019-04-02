@@ -49,6 +49,15 @@ section {
   }
 }
 
+.videos {
+  article {
+    width: $max-width;
+    iframe {
+      min-height: 400px;
+    }
+  }
+}
+
 .content {
   border-radius: 4px;
   max-width: 980px;
