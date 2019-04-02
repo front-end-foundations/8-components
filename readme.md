@@ -12,6 +12,8 @@ Work on a final project. See session 7 for guidelines (TLDR - few).
 
 Our hypothetical company has a site the looks outdated, is not responsive and needs updated content.
 
+[Here](http://oit2.scps.nyu.edu/~devereld/session8/app/) is what their site looks like.
+
 ![site](ignore/other/wide.png)
 
 We will be using many of the files and techniques we looked at last week. Before beginning, examine the changes.
