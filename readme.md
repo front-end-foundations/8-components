@@ -6,21 +6,23 @@ Log in to Github and create an empty repo called components.
 
 ## Homework
 
+Work on a final project. See session 7 for guidelines (TLDR - few).
+
 ## Exercise - A Site Redesign
 
 Our hypothetical company has a site the looks outdated and not responsive.
 
 ![site](ignore/other/wide.png)
 
-Before beginning, examine the changes to the site from last week.
+We will be using many of the files and techniques we looked at last week. Before beginning, examine the changes.
 
-* .gitignore - now includes the `_site` directory
-* pages - instead of post we now have a pages collection
-* components - inside the `_includes` directory
-* layouts - our `layout.html` file now references the components above
-* .eleventyignore - instructs 11ty to not process `readme.md` (this file) and anything in the ignore directory
-* static - reorganized assets
-* .eleventy.js - passthroughs for images, JS and CSS
+* .gitignore - now includes the `_site` directory (not critical - just pointing it out)
+* pages - instead of post we now have a pages collection - better naming convention than posts
+* components - inside the `_includes` directory - breaking down a site into smaller parts is a key skill
+* layouts - our `layout.html` file now references the components above via `include`
+* .eleventyignore - instructs 11ty to not process `readme.md` (this file - for abvious reasons) and anything in the ignore directory (for convenience)
+* static directory - reorganized assets
+* .eleventy.js - passthroughs for images, JS and CSS in the static directory
 
 I have renamed the pages from last class.
 
@@ -45,6 +47,14 @@ $ git init
 $ git add .
 $ git commit -m 'Initial commit'
 ```
+
+Run the project:
+
+```sh
+$ npm run eleventy
+```
+
+And open the side in Chrome.
 
 Create a new Github repo and add the remote origin to the repo following the instructions on Github.
 
