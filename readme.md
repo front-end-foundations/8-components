@@ -40,6 +40,8 @@ I have renamed the pages:
 }
 ```
 
+A bit of work-in-progress is available [here](https://confident-bell-a14295.netlify.com/).
+
 ## GIT
 
 Initialize the repository
