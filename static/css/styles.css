@@ -52,6 +52,30 @@ nav .active a {
   font-weight: bold;
 }
 
+header {
+  max-width: 980px;
+  margin: 0 auto;
+  padding-top: 2rem;
+}
+header h1 {
+	font-size: 3rem;
+}
+header p {
+	font-size: 1.5rem;
+	text-transform: uppercase;
+	line-height: 1.1;
+	margin-bottom: 1rem;
+}
+header h1 + p {
+	padding-top: 1rem;
+	border-top: 3px double #dbd1b5;
+}
+header p + p {
+	font-size: 1rem;
+	line-height: 1.1;
+	color: #999;
+}
+
 .content {
   border-radius: 4px;
   max-width: 980px;
