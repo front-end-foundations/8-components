@@ -6,21 +6,24 @@ Log in to Github and create an empty repo called components.
 
 ## Homework
 
+Work on a final project. See session 7 for guidelines (TLDR - few).
+
 ## Exercise - A Site Redesign
 
 Our hypothetical company has a site the looks outdated and not responsive.
 
 ![site](ignore/other/wide.png)
 
-Before beginning, examine the changes to the site from last week.
+We will be using many of the files and techniques we looked at last week. Before beginning, examine the changes.
 
-* .gitignore - now includes the `_site` directory
-* pages - instead of post we now have a pages collection
-* components - inside the `_includes` directory
-* layouts - our `layout.html` file now references the components above
-* .eleventyignore - instructs 11ty to not process `readme.md` (this file) and anything in the ignore directory
-* static - reorganized assets
-* .eleventy.js - passthroughs for images, JS and CSS
+* .gitignore - now includes the `_site` directory (not critical - just pointing it out)
+* pages - instead of post we now have a pages collection - better naming convention than posts
+* components - inside the `_includes` directory - breaking down a site into smaller parts is a key skill
+* layouts - our `layout.html` file now references the components above via `include`
+* .eleventyignore - instructs 11ty to not process `readme.md` (this file - for abvious reasons) and anything in the ignore directory (for convenience)
+* static directory - reorganized assets
+* .eleventy.js - passthroughs for images, JS and CSS in the static directory
+* scripts.js - removed dependency on pressing a button and call the function directly (produces an error in the console on every page except Blog)
 
 I have renamed the pages from last class.
 
@@ -46,6 +49,14 @@ $ git add .
 $ git commit -m 'Initial commit'
 ```
 
+Run the project:
+
+```sh
+$ npm run eleventy
+```
+
+And open the side in Chrome.
+
 Create a new Github repo and add the remote origin to the repo following the instructions on Github.
 
 ```sh
@@ -70,11 +81,13 @@ In the future you will be able to merge your dev branch with the master branch a
 
 ## Header
 
-Add the first component to layout.js
+Add the first component to `layout.js`
 
 ```
 {% include components/header.html %}
 ```
+
+And the following to `styles.css`
 
 ```css
 header {
@@ -86,7 +99,7 @@ header h1 {
 	font-size: 3rem;
 }
 header p {
-	font-size: 1.25rem;
+	font-size: 1.5rem;
 	text-transform: uppercase;
 	line-height: 1.1;
 	margin-bottom: 1rem;
@@ -106,11 +119,15 @@ header p + p {
 
 Examine the directories in the ignore directory. 
 
-Copy and paste the contents of `syles.css` to `_base.scss`.
+Copy and paste the contents of `styles.css` to `_base.scss`.
+
+Install sass
 
 ```
 $ npm i -D sass
 ```
+
+Add to scripts:
 
 ```js
 {
@@ -133,6 +150,8 @@ $ npm i -D sass
 }
 ```
 
+And stop (`ctrl-c`) and restart (`npm start`) the processes
+
 Call the sass partial from `styles.scss`
 
 ```css
@@ -141,7 +160,9 @@ Call the sass partial from `styles.scss`
 @import 'imports/base';
 ```
 
-CSS minifcation?
+CSS minifcation can be added since the `_site` folder is our production version
+
+`"sass": "sass ignore/scss/styles.scss static/css/styles.css --watch --source-map --style=compressed",`
 
 ## Using Live SASS Compiler
 
@@ -173,9 +194,7 @@ Note: since we are compiling the css directly to the `_site` folder, there is no
 
 ## Nesting SASS
 
-Since we are using SASS includes we can delete the base.css and reset.css files from the css directory.
-
-Refactor the css in `_header.scss` file to use nesting.
+Cut the header CSS from the base file and refactor the css in `_header.scss` file to use nesting.  
 
 ```css
 header {
@@ -186,7 +205,7 @@ header {
     font-size: 2.5rem;
   }
   p {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     text-transform: uppercase;
     line-height: 1.1;
     margin-bottom: 1rem;
@@ -249,6 +268,17 @@ p {
 }
 ```
 
+Git add, commit, merge and push the branch to deloy the changes.
+
+```sh
+$ git add .
+$ git commit -m 'added header'
+$ git status
+$ git checkout master
+$ git merge dev
+$ git push -u origin master
+```
+
 ### Variables
 
 Create `_variables.scss` in `scss/imports` with:
@@ -270,11 +300,41 @@ $dk-yellow: #dbd1b5;
 
 Import it into `styles.scss`. Be sure to import it first in order to make the variables available to the subsequent imports.
 
-Apply the color and break point variables to `_header.scss`.
+Apply the color and break point variables to `_header.scss`
+
+```css
+header {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding-top: 2rem;
+  h1 {
+    font-size: 2.5rem;
+  }
+  p {
+    display: none;
+    @media (min-width: $break-med){
+      display: block;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+  }
+  h1 + p {
+    padding-top: 1rem;
+    border-top: 3px double $dk-yellow;
+  }
+  p + p {
+    font-size: 1rem;
+    line-height: 1.1;
+    color: $med-gray;
+  }
+}
+```
 
 ## Responsive Main Nav
 
-Note the link `<a href="#" id="pull"></a>` in the nav. We will use this to show a menu on small screens:
+Note the link `<a href="#" id="pull"></a>` in the nav. 
 
 ```html
   <nav>
@@ -284,6 +344,8 @@ Note the link `<a href="#" id="pull"></a>` in the nav. We will use this to show 
     </ul>
   </nav>
 ```
+
+We will use this to show a menu on small screens.
 
 * create a sass partial `_nav.scss` 
 * import it into `styles.css` with `@import 'imports/nav';`
@@ -360,6 +422,10 @@ nav a {
   color: #fff;
 }
 
+nav a:hover {
+  text-decoration: none;
+}
+
 nav .active a {
   font-weight: bold;
 }
@@ -407,7 +473,7 @@ nav .active {
 }
 ```
 
-Don't like the hover on an active tab?
+Change the hover on an active tab
 
 ```css
 nav li {
@@ -436,7 +502,7 @@ function showMenu(){
 }
 ```
 
-or
+or, using event delegation:
 
 ```js
 function clickHandlers(){
@@ -449,7 +515,7 @@ function clickHandlers(){
 }
 ```
 
-Add a .showme class to the `_navigation.scss`:
+Add a .show-nav class to the `_nav.scss`:
 
 ```css
 .show-nav nav ul {
@@ -567,6 +633,10 @@ nav .active a {
 	width: 100%;
 }
 ```
+
+Make any additional adjustments.
+
+Note: if we were using React or Angular or Vue to make a single ppage app (SPA) we would have to code the menu to disappear when a selection was made. But because we are actually navigating to a new URL, the menu collapses naturally.
 
 ## Video Component
 
