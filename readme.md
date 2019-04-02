@@ -23,6 +23,7 @@ We will be using many of the files and techniques we looked at last week. Before
 * .eleventyignore - instructs 11ty to not process `readme.md` (this file - for abvious reasons) and anything in the ignore directory (for convenience)
 * static directory - reorganized assets
 * .eleventy.js - passthroughs for images, JS and CSS in the static directory
+* scripts.js - removed dependency on pressing a button and call the function directly (produces an error in the console on every page except Blog)
 
 I have renamed the pages from last class.
 
@@ -80,11 +81,13 @@ In the future you will be able to merge your dev branch with the master branch a
 
 ## Header
 
-Add the first component to layout.js
+Add the first component to `layout.js`
 
 ```
 {% include components/header.html %}
 ```
+
+And the following to `styles.css`
 
 ```css
 header {
@@ -96,7 +99,7 @@ header h1 {
 	font-size: 3rem;
 }
 header p {
-	font-size: 1.25rem;
+	font-size: 1.5rem;
 	text-transform: uppercase;
 	line-height: 1.1;
 	margin-bottom: 1rem;
@@ -116,11 +119,15 @@ header p + p {
 
 Examine the directories in the ignore directory. 
 
-Copy and paste the contents of `syles.css` to `_base.scss`.
+Copy and paste the contents of `styles.css` to `_base.scss`.
+
+Install sass
 
 ```
 $ npm i -D sass
 ```
+
+Add to scripts:
 
 ```js
 {
@@ -143,6 +150,8 @@ $ npm i -D sass
 }
 ```
 
+And stop (`ctrl-c`) and restart (`npm start`) the processes
+
 Call the sass partial from `styles.scss`
 
 ```css
@@ -151,7 +160,9 @@ Call the sass partial from `styles.scss`
 @import 'imports/base';
 ```
 
-CSS minifcation?
+CSS minifcation can be added since the `_site` folder is our production version
+
+`"sass": "sass ignore/scss/styles.scss static/css/styles.css --watch --source-map --style=compressed",`
 
 ## Using Live SASS Compiler
 
@@ -183,9 +194,7 @@ Note: since we are compiling the css directly to the `_site` folder, there is no
 
 ## Nesting SASS
 
-Since we are using SASS includes we can delete the base.css and reset.css files from the css directory.
-
-Refactor the css in `_header.scss` file to use nesting.
+Cut the header CSS from the base file and refactor the css in `_header.scss` file to use nesting.  
 
 ```css
 header {
@@ -196,7 +205,7 @@ header {
     font-size: 2.5rem;
   }
   p {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     text-transform: uppercase;
     line-height: 1.1;
     margin-bottom: 1rem;
